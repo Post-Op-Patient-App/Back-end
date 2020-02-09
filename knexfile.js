@@ -1,4 +1,5 @@
 // Update with your config settings.
+const dbConnection = process.env.DATABASE_URL;
 
 module.exports = {
 
@@ -34,18 +35,14 @@ module.exports = {
 
   production: {
     client: 'postgresql',
-    connection: {
-      database: process.env.DB_URL,
-      user:     'username',
-      password: 'password'
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
+    connection: dbConnection,
+    useNullAsDefault: true,
     migrations: {
-      tableName: 'knex_migrations'
-    }
-  }
+      directory: './data/migrations',
+    },
+    seeds: {
+      directory: './data/seeds',
+    },
+  },
 
 };

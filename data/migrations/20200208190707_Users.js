@@ -19,20 +19,34 @@ exports.up = function(knex, Promise) {
         patients.increments();
         patients.string('firstName', 125).notNullable();
         patients.string('lastName', 125).notNullable();
-        patients.integer('L-CORE')
-        patients.integer('L-SURF')
-        patients.integer('L-O2')
-        patients.integer('L-BP')
-        patients.integer('SURF-STBL')
-        patients.integer('CORE-STBL')
-        patients.integer('BP-STBL')
-        patients.float('COMFORT')
-        patients.string('nurseDecision')
-        patients.string('mechineDecision')
+      })
+      .createTable('vitals', vitals => {
+        vitals.increments();
+        vitals
+          .integer('patients_id')
+          .unsigned()
+          .notNullable()
+          .references('id')
+          .inTable('patients')
+          .onDelete('CASCADE')
+          .onUpdate('CASCADE');
+          vitals.integer('L-CORE');
+          vitals.integer('L-SURF');
+          vitals.integer('L-O2');
+          vitals.integer('L-BP');
+          vitals.integer('SURF-STBL');
+          vitals.integer('CORE-STBL');
+          vitals.integer('BP-STBL');
+          vitals.float('COMFORT');
+          vitals.string('nurseDecision');
+          vitals.string('mechineDecision');
       })
 
   };
   
   exports.down = function(knex, Promise) {
-    return knex.schema.dropTableIfExists("users");
+    return knex.schema
+      .dropTableIfExists("users")
+      .dropTableIfExists("patients")
+      .dropTableIfExists("vitals")
   };

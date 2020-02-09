@@ -6,8 +6,8 @@ exports.seed = function(knex) {
     .then(function () {
       // Inserts seed entries
       return knex('users').insert([
-        {userName: 'Doctor', password: bcrpyt.hashSync('PassWord20@$', 10), 'Doctor': true},
-        {userName: 'Nurse', password: bcrpyt.hashSync('PassWord20@$', 10), 'Doctor': false},
+        {userName: 'Doctor', password: bcrpyt.hashSync('PassWord20@$', 10), 'doctor': true},
+        {userName: 'Nurse', password: bcrpyt.hashSync('PassWord20@$', 10), 'doctor': false},
       ]);
     });
 };
